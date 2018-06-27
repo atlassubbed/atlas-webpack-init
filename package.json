@@ -42,5 +42,11 @@
     "atlas-parallel": "^1.0.0",
     "minimist": "^1.2.0",
     "prompt": "^1.0.0"
+  },
+  "homepage": "https://github.com/atlassubbed/atlas-webpack-init#readme",
+  "bugs": "https://github.com/atlassubbed/atlas-webpack-init/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/atlassubbed/atlas-webpack-init.git"
   }
 }
