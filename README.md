@@ -30,7 +30,7 @@ webpack-init -n my-app -d "my description" -a "atlassubbed <atlassubbed@gmail.co
 
 #### without args
 
-If you don't specify any args, you will be prompted to enter your name, description, author and `index.html` title. In this case, all responses are optional. If you don't specify a name, it will default to "webpack-app":
+If you don't specify any args, you will be prompted to enter the name, description, author and `index.html` title. In this case, all responses are optional. If you don't specify a name, it will default to "webpack-app":
 
 ```
 webpack-init
