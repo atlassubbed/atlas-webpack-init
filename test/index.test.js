@@ -230,18 +230,21 @@ describe("production build for generated app", function(){
   const cwd = join(assets, "ready-project")
   // build all apps and establish prod/dist output
   before(function(done){
-    this.timeout(60e3)
-    console.log("    (building apps ~ 10s...)")
-    parallel(sources.map(name => done2 => {
-      const entry = `./${name}/index.js`
-      const out = `./dist-${name}`
-      const bin = "./node_modules/.bin/webpack"
-      const conf = "webpack.prod.js"
-      const buildCmd = `rm -rf '${out}' && ${bin} '${entry}' --output-path='${out}' --config ${conf}`
-      exec(buildCmd, {cwd}, done2)
-    }), errs => {
-      // eh, this is fine
-      done(errs.length && errs[0])
+    this.timeout(120e3)
+    console.log("    (building apps ~ 30s...)")
+    exec("npm install", {cwd}, err => {
+      if (err) return done(err);
+      parallel(sources.map(name => done2 => {
+        const entry = `./${name}/index.js`
+        const out = `./dist-${name}`
+        const bin = "./node_modules/.bin/webpack"
+        const conf = "webpack.prod.js"
+        const buildCmd = `rm -rf '${out}' && ${bin} '${entry}' --output-path='${out}' --config ${conf}`
+        exec(buildCmd, {cwd}, done2)
+      }), errs => {
+        // eh, this is fine
+        done(errs.length && errs[0])
+      })
     })
   })
   describe("transpiling, minifying and gzipping separate runtimes", function(){
