@@ -1,0 +1,51 @@
+#root {
+  width: 640px;
+  height: 360px;
+}
+
+p {
+    border: 1px solid powderblue;
+    padding: 30px;
+}
+
+h1 {
+    color: blue;
+    font-family: verdana;
+    font-size: 300%;
+}
+
+h2 {
+    color: blue;
+    font-family: verdana;
+    font-size: 300%;
+}
+
+h3 {
+    color: blue;
+    font-family: verdana;
+    font-size: 300%;
+}
+
+h4 {
+    color: blue;
+    font-family: verdana;
+    font-size: 300%;
+}
+
+h5 {
+    color: blue;
+    font-family: verdana;
+    font-size: 300%;
+}
+
+h6 {
+    color: blue;
+    font-family: verdana;
+    font-size: 300%;
+}
+
+p  {
+    color: red;
+    font-family: courier;
+    font-size: 160%;
+}
