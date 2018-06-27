@@ -3,17 +3,31 @@
   "version": "1.0.0",
   "description": "A CLI tool for generating production webpack web apps with necessary boilerplate.",
   "scripts": {
-    "test-server": "mocha --colors --watch --recursive './test/**/*.test.js'",
-    "test": "mocha --colors --recursive './test/**/*.test.js'"
+    "test-server": "mocha --colors --watch --recursive './test/**/*.test.js' || rm -rf ./test/tmp-*",
+    "test": "mocha --colors --recursive './test/**/*.test.js' || rm -rf ./test/tmp-*"
   },
   "main": "./src/index.js",
-  "private": true,
-  "keywords": [],
+  "bin": {
+    "webpack-init": "./src/index.js"
+  },
+  "keywords": [
+    "atlassubbed",
+    "utils",
+    "utility",
+    "command",
+    "cli",
+    "npm",
+    "generator",
+    "boilerplate",
+    "starter"
+  ],
   "author": "atlassubbed <atlassubbed@gmail.com>",
   "license": "Apache-2.0",
   "devDependencies": {
+    "atlas-interactive-shell": "^1.0.0",
     "chai": "^4.1.2",
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "tmp": "0.0.33"
   },
   "os": [
     "darwin",
@@ -22,5 +36,11 @@
   "engines": {
     "node": "^10.1.0",
     "npm": "^6.0.1"
+  },
+  "dependencies": {
+    "atlas-git-identity": "^1.0.2",
+    "atlas-parallel": "^1.0.0",
+    "minimist": "^1.2.0",
+    "prompt": "^1.0.0"
   }
 }
