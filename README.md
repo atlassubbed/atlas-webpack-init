@@ -91,7 +91,7 @@ I'd like to have a global executable called `atlas` which has the following sub-
   5. `whoami`
   6. ~~`login`~~: Not needed, thanks to `atlas-recursive-auth`
 
-As of right now, the `atlas` command only has subcommands 3 and 4 above. `atlas-npm-init` and `altas-webpack-init` (this package) are their own commands, but i'd like to turn them into 1 and 2 above, respectively. The `atlas` command should then be responsible for initializing pretty much everything in a new project.
+As of right now, the `atlas` command only has subcommands 3 and 4 above. `atlas-npm-init` and `altas-webpack-init` (this package) are their own commands, but I'd like to turn them into 1 and 2 above, respectively. The `atlas` command should then be responsible for initializing pretty much everything in a new project.
 
 ## caveats
 
