@@ -2,6 +2,8 @@
 
 A CLI tool for generating production webpack web apps with necessary boilerplate.
 
+[![Travis](https://img.shields.io/travis/atlassubbed/atlas-webpack-init.svg)](https://travis-ci.org/atlassubbed/atlas-webpack-init)
+
 ---
 
 ## install
