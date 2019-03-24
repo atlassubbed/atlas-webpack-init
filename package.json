@@ -1,6 +1,6 @@
 {
   "name": "atlas-webpack-init",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A CLI tool for generating production webpack web apps with necessary boilerplate.",
   "scripts": {
     "test-server": "mocha --colors --watch './test/*.test.js' || rm -rf ./test/tmp-*",
