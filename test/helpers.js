@@ -1,6 +1,5 @@
 const { exec, spawn } = require("child_process")
 const { readFile, stat } = require("fs")
-const { unzip } = require("zlib")
 const { join } = require("path")
 const Shell = require("atlas-interactive-shell")
 const { flatArgs } = require("./util")
@@ -51,13 +50,4 @@ const buildAndRun = (args, cmd, cb) => {
   })
 }
 
-const readZip = (path, cb) => {
-  readFile(path, (err, data) => {
-    if (err) return cb(err);
-    unzip(data, (err, data) => {
-      cb(err, data && data.toString())
-    })
-  })
-}
-
-module.exports = { build, tempDir, buildAndRead, buildAndCheck, buildAndRun, readZip }
+module.exports = { build, tempDir, buildAndRead, buildAndCheck, buildAndRun }

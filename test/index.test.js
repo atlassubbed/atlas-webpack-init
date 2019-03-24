@@ -3,16 +3,10 @@ const { expect } = require("chai")
 const { join } = require("path")
 const { exec } = require("child_process")
 const Shell = require("atlas-interactive-shell")
-const parallel = require("atlas-parallel")
-const { readFile, readdir } = require("fs")
-const { build, tempDir, buildAndRead, buildAndCheck, buildAndRun, readZip } = require("./helpers")
-const { diffArray } = require("./util")
+const { build, tempDir, buildAndRead, buildAndCheck, buildAndRun } = require("./helpers")
 const { 
   getLicense, 
   getPrompt, 
-  sources, 
-  filenames, 
-  minifiedFiles, 
   getGitIgnore } = require("./assets/assets")
 
 const assets = join(__dirname, "assets")
@@ -225,96 +219,3 @@ describe("starter app generator", function(){
     })
   })
 })
-
-describe("production build for generated app", function(){
-  const cwd = join(assets, "ready-project")
-  // build all apps and establish prod/dist output
-  before(function(done){
-    this.timeout(120e3)
-    console.log("    (building apps ~ 30s...)")
-    exec("npm install", {cwd}, err => {
-      if (err) return done(err);
-      parallel(sources.map(name => done2 => {
-        const entry = `./${name}/index.js`
-        const out = `./dist-${name}`
-        const bin = "./node_modules/.bin/webpack"
-        const conf = "webpack.prod.js"
-        const buildCmd = `rm -rf '${out}' && ${bin} '${entry}' --output-path='${out}' --config ${conf}`
-        exec(buildCmd, {cwd}, done2)
-      }), errs => {
-        // eh, this is fine
-        done(errs.length && errs[0])
-      })
-    })
-  })
-  describe("transpiling, minifying and gzipping separate runtimes", function(){
-    ["app", "webpack", "vendor"].forEach(type => {
-      it(`should build a correctly transpiled, min-gzipped js file for ${type}'s runtime`, function(done){
-        readZip(join(cwd, "dist-src", filenames.js[type]), (err, data) => {
-          if (err) return done(err);
-          expect(data).to.equal(minifiedFiles.js[type])
-          done()
-        })
-      })
-    })
-  })
-  describe("gzipping only when it is worth it", function(){
-    it("should build a correctly minified (not gzipped) merged stylesheet for small app", function(done){
-      readFile(join(cwd, "dist-src", filenames.css.small), (err, data) => {
-        if (err) return done(err);
-        expect(data.toString()).to.equal(minifiedFiles.css.small)
-        done()
-      })
-    })
-    it("should build a correctly min-gzipped merged stylesheet for large app", function(done){
-      readZip(join(cwd, "dist-src-large", filenames.css.large), (err, data) => {
-        if (err) return done(err);
-        expect(data).to.equal(minifiedFiles.css.large)
-        done()
-      })
-    })
-    it("should build a correctly min-gzipped index.html", function(done){
-      readZip(join(cwd, "dist-src", filenames.html.index), (err, data) => {
-        if (err) return done(err);
-        expect(data).to.equal(minifiedFiles.html.index)
-        done()
-      })
-    })
-  })
-  describe("caching assets for long-term usage", function(){
-    const { js, css, html } = filenames
-    const originalFilenames = [js.app, js.vendor, js.webpack, html.index, css.small]
-    it("should change the name of only the app's runtime file if a js file changes", function(done){
-      readdir(join(cwd, "dist-src-js-change"), (err, files) => {
-        if (err) return done(err);
-        expect(files.length).to.equal(originalFilenames.length)
-        const diff = diffArray(files, originalFilenames);
-        expect(diff.length).to.equal(1)
-        expect(diff[0]).to.equal(js.delta)
-        done()
-      })
-    })
-    it("should not change any filename if only the html file changes", function(done){
-      readdir(join(cwd, "dist-src-html-change"), (err, files) => {
-        if (err) return done(err);
-        expect(files.length).to.equal(originalFilenames.length)
-        const diff = diffArray(files, originalFilenames);
-        expect(diff.length).to.equal(0)
-        done()
-      })
-    })
-    it("should change the name of only the merged css file if a stylesheet changes", function(done){
-      readdir(join(cwd, "dist-src-css-change"), (err, files) => {
-        if (err) return done(err);
-        expect(files.length).to.equal(originalFilenames.length)
-        const diff = diffArray(files, originalFilenames);
-        expect(diff.length).to.equal(1)
-        expect(diff[0]).to.equal(css.delta)
-        done()
-      })
-    })
-  })
-})
-
-
-

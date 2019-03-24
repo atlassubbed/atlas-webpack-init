@@ -15,13 +15,4 @@ const flatArgs = args => {
   return flags;
 }
 
-// return an array of elements which are in a1 but not in a2
-const diffArray = (a1, a2) => {
-  const a2hash = a2.reduce((p,c) => (p[c] = true) && p,{})
-  let uniques = [];
-  for (let a of a1)
-    if (!a2hash[a]) uniques.push(a)
-  return uniques;
-}
-
-module.exports = { flatArgs, diffArray }
+module.exports = { flatArgs }
