@@ -163,15 +163,12 @@ describe("starter app generator", function(){
       expect(data.description).to.equal(d)
       expect(data.author).to.equal(a)
       expect(data._title).to.equal(t)
-      const getOS = "process.stdout.write(os.type().toLowerCase())"
-      exec(`node -v && npm -v && node -e "${getOS}"`, (err, val) => {
+      exec(`node -v && npm -v`, (err, val) => {
         if (err) return done(err);
         val = val.split("\n");
         expect(data.engines).to.be.an("object")
-        expect(data.os).to.be.an("array")
         expect(data.engines.node).to.equal(`^${val[0].slice(1)}`)
         expect(data.engines.npm).equal(`^${val[1]}`)
-        expect(data.os).to.deep.equal(val[2]==="darwin"?[val[2],"linux"]:[val[2]])
         done();
       })
     })
