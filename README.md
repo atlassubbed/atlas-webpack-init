@@ -103,7 +103,7 @@ React is *not* assumed, it only takes a minute to install `react` and the associ
 
 #### license
 
-`LICENSE.md` defaults to Apache-2.0. Should I change this to MIT? Currently, there's no option to change it from the CLI. Changing it manually would simply require editing a line in `package.json` and editing the `LICENSE.md` file itself.
+`LICENSE.md` defaults to MIT. Currently, there's no option to change it from the CLI. Changing it manually would simply require editing a line in `package.json` and editing the `LICENSE.md` file itself.
 
 #### private
 
